@@ -5,8 +5,13 @@ h1{
 h2{
   font-size:30px;
 }
+
 .debug{
-    border:1px solid red;
+    //border:1px solid red;
+}
+
+.mybody{
+  overflow:hidden;
 }
 
 .mytitle{
@@ -41,5 +46,17 @@ h2{
 .mydrawer{
   margin-top: 64px;
   background-color: rgb(255,255,255);
+}
 
+.myscroll{
+  margin-top: 60px;
+  overflow-y: scroll;
+  height:698px;/*比body内含的元素总的高度小才有效果,这个数值极度影响排版，magic number...*/
+}
+
+.mycontainer{
+  background-color: rgba(255,0,255,0.1);
+  width: 1050px;
+  margin-top: 20px;
+  height: 200px;
 }
