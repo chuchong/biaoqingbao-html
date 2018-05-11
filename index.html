@@ -6,6 +6,25 @@
 <link href="mdui.css" rel="stylesheet" type="text/css" />
 <link href="mycss.css" rel="stylesheet" type="text/css" />
 <script type="text/javascript" src="mdui.js"></script>
+
+
+<script type="text/javascript">
+
+/*判断浏览器版本是否过低*/
+$(document).ready(function() {s
+    var b_name = navigator.appName;
+    var b_version = navigator.appVersion;
+    var version = b_version.split(";");
+    var trim_version = version[1].replace(/[ ]/g, "");
+    if (b_name == "Microsoft Internet Explorer") {
+          /*如果是IE6或者IE7*/
+         if (trim_version == "MSIE9.0" ||trim_version == "MSIE8.0" ||trim_version == "MSIE7.0" || trim_version == "MSIE6.0") {
+              alert("IE浏览器版本过低，请到指定网站去下载相关版本");
+              //然后跳到需要连接的下载网站
+           }
+      }
+});
+</script>
 </head>
 
 
@@ -218,6 +237,7 @@
   written by: 黎思宇、 刘旭鑫<br/> 致谢开源
   <a class = "mdui-ripple" href="https://www.mdui.org/">MDUI</a>开发者们
 </div>
+<br/><br/><br/><br/>
 </div>
 <!--end footer-->
 </div>
