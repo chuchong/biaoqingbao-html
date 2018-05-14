@@ -5,11 +5,22 @@
 <title>老年人表情包</title>
 <link href="mdui.css" rel="stylesheet" type="text/css" />
 <link href="mycss.css" rel="stylesheet" type="text/css" />
-<script type="text/javascript" src="mdui.js"></script>
+<script type="text/javascript" src="mdui.js">
+</script>
+<script type="text/javascript">
+	function resizeScroll(){
+    //alert('You have changed the size of the window');
+    var k = window.innerHeight / 762;
+    var height = (window.innerHeight-64*k);
+    //
+    document.getElementById("scroll").style.height=height.toString()+"px";
+    //
+}
+</script>
 </head>
 
 
-<body class="mdui-theme-primary-purple mybody" >
+<body class="mdui-theme-primary-purple mybody" onload ="resizeScroll();" onresize=" resizeScroll();">
   <!--head-->
   <div class="mdui-appbar mdui-appbar-fixed debug">
   <div class="mdui-toolbar mdui-color-theme debug">
