@@ -79,7 +79,7 @@ h2{
 .myscroll{
   margin-top: 60px;
   overflow-y: auto;
-  height:698px;/*比body内含的元素总的高度小才有效果,这个数值极度影响排版，magic number...*/
+  height:650px;/*比body内含的元素总的高度小才有效果,这个数值极度影响排版，magic number...*/
   background-color: #E8EAF6;
 }
 
