@@ -24,11 +24,20 @@ $(document).ready(function() {s
            }
       }
 });
+
+function resizeScroll(){
+    //alert('You have changed the size of the window');
+    var k = window.innerHeight / 762;
+    var height = (window.innerHeight-64*k);
+    //
+    document.getElementById("scroll").style.height=height.toString()+"px";
+    //
+}
 </script>
 </head>
 
 
-<body class="mdui-theme-primary-purple mybody" >
+<body class="mdui-theme-primary-purple mybody" onload ="resizeScroll();" onresize=" resizeScroll();">
 <!--head-->
 <div class="mdui-appbar mdui-appbar-fixed debug">
 <div class="mdui-toolbar mdui-color-theme debug">
@@ -115,7 +124,7 @@ $(document).ready(function() {s
 <!--end drawer-->
 
 <!--main body-->
-<div class ="myscroll debug mdui-text-color-grey-800">
+<div class ="myscroll debug mdui-text-color-grey-800" id="scroll">
 <div class ="mdui-container mdui-hoverable mdui-card debug mycontainer" id="1">
   <p><h2>:) 字符表情</h2></p>
     <p>:)最早的表情包,:)是一个网络流行的表情，
