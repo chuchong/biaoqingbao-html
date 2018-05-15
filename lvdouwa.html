@@ -6,6 +6,16 @@
 <link href="mdui.css" rel="stylesheet" type="text/css" />
 <link href="mycss.css" rel="stylesheet" type="text/css" />
 <script type="text/javascript" src="mdui.js"></script>
+<script type="text/javascript">
+  function resizeScroll(){
+    //alert('You have changed the size of the window');
+    var k = window.innerHeight / 762;
+    var height = (window.innerHeight-64*k);
+    //
+    document.getElementById("scroll").style.height=height.toString()+"px";
+    //
+}
+</script>
 </head>
 
 
@@ -96,9 +106,44 @@
   <!--end drawer-->
 
   <!--main body-->
-  <div class ="myscroll debug mdui-text-color-grey-800">
+  <div class ="myscroll debug mdui-text-color-grey-800" id="scroll">
   <div class ="mdui-container mdui-hoverable mdui-card debug mycontainer" id="1">
-
+    <p><h2>表情起源</h2></p>
+    <p>绿豆蛙是翔通动漫旗下经典的卡通形象，诞生于2003年夏天，因形象可爱、表情有趣而风靡于互联网，被广大网络用户应用于社交软件头像，聊天对话之中。</p>
+  </div>
+  <div class ="mdui-container mdui-hoverable mdui-card debug mycontainer" id="2">
+    <p><h2>形象简介</h2></p>
+    <p>绿豆蛙LEON，有着对它来说非常远大的志向，就是结交天下的朋友，寻找自己的幸福。但是前途漫漫，展现在它眼前的并不是完美的世界，而是现实的生活。朋友、敌人、爱人，等待它的会是什么呢？在未来的征途中，螃蟹BLOO，水灵MM，龙虾LOBSTER兄弟，毛毛虫BREAD，姆鸡SABON将一一登场。</p>
+    <p>最喜欢的运动:慢跑</p>
+    <p>最好的朋友：螃蟹小蓝</p>
+    <p>最喜欢的颜色： 绿色</p>
+    <p>最怕的东西： 毛毛虫</p>
+  </div>
+  <div class ="mdui-container mdui-hoverable mdui-card debug mycontainer" id="3">
+    <p><h2>表情示例</h2></p>
+    <p><img src="images/lvdouwa.png">&nbsp;&nbsp;
+    <img src="images/lvdouwa2.png">
+    <img src="images/lvdouwa3.png"></p>
+    <p><img src="images/lvdouwa4.png">&nbsp;&nbsp;
+    <img src="images/lvdouwa5.png">&nbsp;&nbsp;
+    <img src="images/lvdouwa6.png"></p>
+    <p><img src="images/lvdouwa7.jpg"></p>
+    <p><img src="images/lvdouwa9.jpg">
+      &nbsp;&nbsp;<img src="images/lvdouwa10.jpg"></p>
+  </div>
+  <div class ="mdui-container mdui-hoverable mdui-card debug mycontainer" id="4">
+    <p><h2>相关作品</h2></p>
+    <p>绿豆蛙安全系列：8集</p>
+    <p>绿豆蛙公益系列：110集</p>
+    <p>绿豆蛙梦想许愿池系列：15集</p>
+    <p>绿豆蛙爱情日志系列：58集</p>
+    <p>绿豆蛙奥运日志系列：18集</p>
+    <p>绿豆蛙建国系列：14集</p>
+    <p>绿豆蛙运动系列：28集</p>
+    <p>绿豆蛙上班系列：31集</p>
+    <p>绿豆蛙笑话系列：42集</p>
+    <p>绿豆蛙经典舞台剧系列：14集</p>
+    <p>绿豆蛙寻找莉安娜系列：2集</p>
   </div>
   <!--footer-->
   <div class = "mdui-color-theme" style="margin-top:0px;height:40px; margin-top:20px;">
