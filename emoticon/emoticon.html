@@ -10,7 +10,7 @@
 </head>
 
 
-<body class="mdui-theme-primary-purple mybody" >
+<body class="mdui-theme-primary-purple mybody" onload ="resizeScroll();" onresize=" resizeScroll();" style = "background-image: url(images/happy.gif);" >
   <!--head-->
   <div class="mdui-appbar mdui-appbar-fixed debug">
   <div class="mdui-toolbar mdui-color-theme debug">
@@ -27,7 +27,7 @@
   </div>
 
   <div  class ="debug mytitle">
-    <a ><font size="50px">表情包</font></a>
+    <a ><font size="50px">字符表情</font></a>
   </div>
   </div>
   </div>
@@ -97,9 +97,127 @@
   <!--end drawer-->
 
   <!--main body-->
-  <div class ="myscroll debug mdui-text-color-grey-800">
-  <div class ="mdui-container mdui-hoverable mdui-card debug mycontainer" id="1">
-
+  <div class ="myscroll debug" style = "background-image: url(images/happy.gif);" id="scroll" >
+  <div class ="mdui-container mdui-hoverable mdui-card debug mycontainer" id="1" >
+  <table align="center" >
+    <tr><th colspan="4">&nbsp;</th>
+    </tr>
+    <tr><th colspan="4"><font face="楷体" size="50px">字符表情</font></th>
+    </tr>
+    <tr><td colspan="4"><font face="隶书" size="20px">字符表情历史</font></td>
+    </tr>
+    <tr><td colspan="4">1982年9月19日，史考特·法尔曼（Scott Fahlman)率先于卡内基美隆大学的计算机科学电子布告栏上使用 :-) 及 :-( 作为字符表情,是字符表情出现于网络世界的开端。</br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;原本以为该次使用纪录已经无法追溯，却在20年后，由杰夫·拜尔德（Jeff Baird）从备份磁带里找了出来。</br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;字符表情流行之初，系使用ASCII的可显示字符，并以转90度角的方向来模拟人的脸部表情。传到亚洲国家以后，先是有人改用不转90度角的模拟方式，阅读时不用再侧着头。
+      其后又有人添加亚洲文字常见的全角字符，使得表情更为丰富。近年来又出现脸部之外的各体身体表情，表达题材也更加多元。</p>
+      <hr/>
+    </td>
+  </tr><td colspan="4"><font face="隶书" size="20px">字符表情示例</font></td>
+    <tr>
+      <td>表情</td>
+      <td>:)</td>
+      <td>意思</td>
+      <td>开心</td>
+    </tr>
+    <tr>
+      <td>表情</td>
+      <td>:(</td>
+      <td>意思</td>
+      <td>悲伤</td>
+    </tr>
+    <tr>
+      <td>表情</td>
+      <td>:((</td>
+      <td>意思</td>
+      <td>很悲伤</td>
+    </tr>
+    <tr>
+      <td>表情</td>
+      <td>:'(</td>
+      <td>意思</td>
+      <td>啜泣</td>
+    </tr>
+    <tr>
+      <td>表情</td>
+      <td>:"></td>
+      <td>意思</td>
+      <td>脸红</td>
+    </tr>
+    <tr>
+      <td>表情</td>
+      <td>:)</td>
+      <td>意思</td>
+      <td>开心</td>
+    </tr>
+    <tr>
+      <td>表情</td>
+      <td>;)</td>
+      <td>意思</td>
+      <td>眨眼</td>
+    </tr>
+    <tr>
+      <td>表情</td>
+      <td>:D</td>
+      <td>意思</td>
+      <td>咧嘴笑</td>
+    </tr>
+    <tr>
+      <td>表情</td>
+      <td>:P</td>
+      <td>意思</td>
+      <td>吐舌头</td>
+    </tr>
+    <tr>
+      <td>表情</td>
+      <td>XD</td>
+      <td>意思</td>
+      <td>坏笑</td>
+    </tr>
+    <tr>
+      <td>表情</td>
+      <td>>:(</td>
+      <td>意思</td>
+      <td>愤怒</td>
+    </tr>
+    <tr>
+      <td>表情</td>
+      <td>>:D</td>
+      <td>意思</td>
+      <td>大笑</td>
+    </tr>
+    <tr>
+      <td>表情</td>
+      <td>:s</td>
+      <td>意思</td>
+      <td>鬼脸</td>
+    </tr>
+  </tr><td colspan="4"><hr/><font face="隶书" size="20px"> 字符表情和颜文字区别</font></td>
+  <tr>
+    <td colspan="2">字符表情</td>
+    <td colspan="2">颜文字</td>
+  </tr>
+  <tr>
+    <td colspan="2">出现较早</td>
+    <td colspan="2">出现较晚</td>
+  </tr>
+  <tr>
+    <td colspan="2">一般要侧着头看</td>
+    <td colspan="2">不用侧着头看，可以直接看</td>
+  </tr>
+  <tr>
+    <td colspan="2">在欧美使用较多</td>
+    <td colspan="2">在东亚使用较多</td>
+  </tr>
+  <tr>
+    <td colspan="2">仅利用ascii字符即可表示完</td>
+    <td colspan="2">一般要利用utf-8字符</td>
+  </tr>
+  <tr>
+    <td colspan="2">相对比较严肃</td>
+    <td colspan="2">相对比较可爱</td>
+  </tr>
+</tr><td colspan="4"><hr/><font face="隶书" size="20px">颜文字<a class = "pinklink" href="../emoji/emoji.html"> 更多内容</a></font></td>
+  </table>
   </div>
   <!--footer-->
   <div class = "mdui-color-theme" style="margin-top:0px;height:40px; margin-top:20px;">
