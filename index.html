@@ -9,7 +9,7 @@
 
 
 <script type="text/javascript">
-
+<!--
 /*判断浏览器版本是否过低*/
 $(document).ready(function() {s
     var b_name = navigator.appName;
@@ -24,13 +24,143 @@ $(document).ready(function() {s
            }
       }
 });
+
+function MM_timelineGoto(tmLnName, fNew, numGotos) { //v2.0
+  //Copyright 1998, 1999, 2000, 2001, 2002, 2003, 2004 Macromedia, Inc. All rights reserved.
+  var i,j,tmLn,props,keyFrm,sprite,numKeyFr,firstKeyFr,lastKeyFr,propNum,theObj;
+  if (document.MM_Time == null) MM_initTimelines(); //if *very* 1st time
+  tmLn = document.MM_Time[tmLnName];
+  if (numGotos != null)
+    if (tmLn.gotoCount == null) tmLn.gotoCount = 1;
+    else if (tmLn.gotoCount++ >= numGotos) {tmLn.gotoCount=0; return}
+  jmpFwd = (fNew > tmLn.curFrame);
+  for (i = 0; i < tmLn.length; i++) {
+    sprite = (jmpFwd)? tmLn[i] : tmLn[(tmLn.length-1)-i]; //count bkwds if jumping back
+    if (sprite.charAt(0) == "s") {
+      numKeyFr = sprite.keyFrames.length;
+      firstKeyFr = sprite.keyFrames[0];
+      lastKeyFr = sprite.keyFrames[numKeyFr - 1];
+      if ((jmpFwd && fNew<firstKeyFr) || (!jmpFwd && lastKeyFr<fNew)) continue; //skip if untouchd
+      for (keyFrm=1; keyFrm<numKeyFr && fNew>=sprite.keyFrames[keyFrm]; keyFrm++);
+      for (j=0; j<sprite.values.length; j++) {
+        props = sprite.values[j];
+        if (numKeyFr == props.length) propNum = keyFrm-1 //keyframes only
+        else propNum = Math.min(Math.max(0,fNew-firstKeyFr),props.length-1); //or keep in legal range
+        if (sprite.obj != null) {
+          if (props.prop2 == null) sprite.obj[props.prop] = props[propNum];
+          else        sprite.obj[props.prop2][props.prop] = props[propNum];
+      } }
+    } else if (sprite.charAt(0)=='b' && fNew == sprite.frame) eval(sprite.value);
+  }
+  tmLn.curFrame = fNew;
+  if (tmLn.ID == 0) eval('MM_timelinePlay(tmLnName)');
+}
+
+function MM_timelinePlay(tmLnName, myID) { //v1.2
+  //Copyright 1998, 1999, 2000, 2001, 2002, 2003, 2004 Macromedia, Inc. All rights reserved.
+  var i,j,tmLn,props,keyFrm,sprite,numKeyFr,firstKeyFr,propNum,theObj,firstTime=false;
+  if (document.MM_Time == null) MM_initTimelines(); //if *very* 1st time
+  tmLn = document.MM_Time[tmLnName];
+  if (myID == null) { myID = ++tmLn.ID; firstTime=true;}//if new call, incr ID
+  if (myID == tmLn.ID) { //if Im newest
+    setTimeout('MM_timelinePlay("'+tmLnName+'",'+myID+')',tmLn.delay);
+    fNew = ++tmLn.curFrame;
+    for (i=0; i<tmLn.length; i++) {
+      sprite = tmLn[i];
+      if (sprite.charAt(0) == 's') {
+        if (sprite.obj) {
+          numKeyFr = sprite.keyFrames.length; firstKeyFr = sprite.keyFrames[0];
+          if (fNew >= firstKeyFr && fNew <= sprite.keyFrames[numKeyFr-1]) {//in range
+            keyFrm=1;
+            for (j=0; j<sprite.values.length; j++) {
+              props = sprite.values[j];
+              if (numKeyFr != props.length) {
+                if (props.prop2 == null) sprite.obj[props.prop] = props[fNew-firstKeyFr];
+                else        sprite.obj[props.prop2][props.prop] = props[fNew-firstKeyFr];
+              } else {
+                while (keyFrm<numKeyFr && fNew>=sprite.keyFrames[keyFrm]) keyFrm++;
+                if (firstTime || fNew==sprite.keyFrames[keyFrm-1]) {
+                  if (props.prop2 == null) sprite.obj[props.prop] = props[keyFrm-1];
+                  else        sprite.obj[props.prop2][props.prop] = props[keyFrm-1];
+        } } } } }
+      } else if (sprite.charAt(0)=='b' && fNew == sprite.frame) eval(sprite.value);
+      if (fNew > tmLn.lastFrame) tmLn.ID = 0;
+  } }
+}
+
+function MM_initTimelines() { //v4.0
+    //MM_initTimelines() Copyright 1997 Macromedia, Inc. All rights reserved.
+    var ns = navigator.appName == "Netscape";
+    var ns4 = (ns && parseInt(navigator.appVersion) == 4);
+    var ns5 = (ns && parseInt(navigator.appVersion) > 4);
+    var macIE5 = (navigator.platform ? (navigator.platform == "MacPPC") : false) && (navigator.appName == "Microsoft Internet Explorer") && (parseInt(navigator.appVersion) >= 4);
+    document.MM_Time = new Array(1);
+    document.MM_Time[0] = new Array(2);
+    document.MM_Time["Timeline1"] = document.MM_Time[0];
+    document.MM_Time[0].MM_Name = "Timeline1";
+    document.MM_Time[0].fps = 15;
+    document.MM_Time[0][0] = new String("sprite");
+    document.MM_Time[0][0].slot = 1;
+    if (ns4)
+        document.MM_Time[0][0].obj = document["Layer1"];
+    else if (ns5)
+        document.MM_Time[0][0].obj = document.getElementById("Layer1");
+    else
+        document.MM_Time[0][0].obj = document.all ? document.all["Layer1"] : null;
+    document.MM_Time[0][0].keyFrames = new Array(1, 360);
+    document.MM_Time[0][0].values = new Array(3);
+    if (ns5 || macIE5)
+        document.MM_Time[0][0].values[0] = new Array("0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px", "0px");
+    else
+        document.MM_Time[0][0].values[0] = new Array(0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0);
+    document.MM_Time[0][0].values[0].prop = "left";
+    if (ns5 || macIE5)
+        document.MM_Time[0][0].values[1] = new Array("80px", "78px", "77px", "75px", "74px", "72px", "70px", "69px", "67px", "65px", "64px", "62px", "61px", "59px", "57px", "56px", "54px", "53px", "51px", "49px", "48px", "46px", "44px", "43px", "41px", "40px", "38px", "36px", "35px", "33px", "32px", "30px", "28px", "27px", "25px", "23px", "22px", "20px", "19px", "17px", "15px", "14px", "12px", "11px", "9px", "7px", "6px", "4px", "2px", "1px", "-1px", "-2px", "-4px", "-6px", "-7px", "-9px", "-10px", "-12px", "-14px", "-15px", "-17px", "-19px", "-20px", "-22px", "-23px", "-25px", "-27px", "-28px", "-30px", "-31px", "-33px", "-35px", "-36px", "-38px", "-40px", "-41px", "-43px", "-44px", "-46px", "-48px", "-49px", "-51px", "-52px", "-54px", "-56px", "-57px", "-59px", "-61px", "-62px", "-64px", "-65px", "-67px", "-69px", "-70px", "-72px", "-73px", "-75px", "-77px", "-78px", "-80px", "-82px", "-83px", "-85px", "-86px", "-88px", "-90px", "-91px", "-93px", "-94px", "-96px", "-98px", "-99px", "-101px", "-103px", "-104px", "-106px", "-107px", "-109px", "-111px", "-112px", "-114px", "-115px", "-117px", "-119px", "-120px", "-122px", "-124px", "-125px", "-127px", "-128px", "-130px", "-132px", "-133px", "-135px", "-136px", "-138px", "-140px", "-141px", "-143px", "-145px", "-146px", "-148px", "-149px", "-151px", "-153px", "-154px", "-156px", "-157px", "-159px", "-161px", "-162px", "-164px", "-166px", "-167px", "-169px", "-170px", "-172px", "-174px", "-175px", "-177px", "-178px", "-180px", "-182px", "-183px", "-185px", "-187px", "-188px", "-190px", "-191px", "-193px", "-195px", "-196px", "-198px", "-199px", "-201px", "-203px", "-204px", "-206px", "-208px", "-209px", "-211px", "-212px", "-214px", "-216px", "-217px", "-219px", "-221px", "-222px", "-224px", "-225px", "-227px", "-229px", "-230px", "-232px", "-233px", "-235px", "-237px", "-238px", "-240px", "-242px", "-243px", "-245px", "-246px", "-248px", "-250px", "-251px", "-253px", "-254px", "-256px", "-258px", "-259px", "-261px", "-263px", "-264px", "-266px", "-267px", "-269px", "-271px", "-272px", "-274px", "-275px", "-277px", "-279px", "-280px", "-282px", "-284px", "-285px", "-287px", "-288px", "-290px", "-292px", "-293px", "-295px", "-296px", "-298px", "-300px", "-301px", "-303px", "-305px", "-306px", "-308px", "-309px", "-311px", "-313px", "-314px", "-316px", "-317px", "-319px", "-321px", "-322px", "-324px", "-326px", "-327px", "-329px", "-330px", "-332px", "-334px", "-335px", "-337px", "-338px", "-340px", "-342px", "-343px", "-345px", "-347px", "-348px", "-350px", "-351px", "-353px", "-355px", "-356px", "-358px", "-359px", "-361px", "-363px", "-364px", "-366px", "-368px", "-369px", "-371px", "-372px", "-374px", "-376px", "-377px", "-379px", "-380px", "-382px", "-384px", "-385px", "-387px", "-389px", "-390px", "-392px", "-393px", "-395px", "-397px", "-398px", "-400px", "-401px", "-403px", "-405px", "-406px", "-408px", "-410px", "-411px", "-413px", "-414px", "-416px", "-418px", "-419px", "-421px", "-422px", "-424px", "-426px", "-427px", "-429px", "-431px", "-432px", "-434px", "-435px", "-437px", "-439px", "-440px", "-442px", "-443px", "-445px", "-447px", "-448px", "-450px", "-452px", "-453px", "-455px", "-456px", "-458px", "-460px", "-461px", "-463px", "-464px", "-466px", "-468px", "-469px", "-471px", "-473px", "-474px", "-476px", "-477px", "-479px", "-481px", "-482px", "-484px", "-485px", "-487px", "-489px", "-490px", "-492px", "-494px", "-495px", "-497px", "-498px", "-500px");
+    else
+        document.MM_Time[0][0].values[1] = new Array(80,78,77,75,74,72,70,69,67,65,64,62,61,59,57,56,54,53,51,49,48,46,44,43,41,40,38,36,35,33,32,30,28,27,25,23,22,20,19,17,15,14,12,11,9,7,6,4,2,1,-1,-2,-4,-6,-7,-9,-10,-12,-14,-15,-17,-19,-20,-22,-23,-25,-27,-28,-30,-31,-33,-35,-36,-38,-40,-41,-43,-44,-46,-48,-49,-51,-52,-54,-56,-57,-59,-61,-62,-64,-65,-67,-69,-70,-72,-73,-75,-77,-78,-80,-82,-83,-85,-86,-88,-90,-91,-93,-94,-96,-98,-99,-101,-103,-104,-106,-107,-109,-111,-112,-114,-115,-117,-119,-120,-122,-124,-125,-127,-128,-130,-132,-133,-135,-136,-138,-140,-141,-143,-145,-146,-148,-149,-151,-153,-154,-156,-157,-159,-161,-162,-164,-166,-167,-169,-170,-172,-174,-175,-177,-178,-180,-182,-183,-185,-187,-188,-190,-191,-193,-195,-196,-198,-199,-201,-203,-204,-206,-208,-209,-211,-212,-214,-216,-217,-219,-221,-222,-224,-225,-227,-229,-230,-232,-233,-235,-237,-238,-240,-242,-243,-245,-246,-248,-250,-251,-253,-254,-256,-258,-259,-261,-263,-264,-266,-267,-269,-271,-272,-274,-275,-277,-279,-280,-282,-284,-285,-287,-288,-290,-292,-293,-295,-296,-298,-300,-301,-303,-305,-306,-308,-309,-311,-313,-314,-316,-317,-319,-321,-322,-324,-326,-327,-329,-330,-332,-334,-335,-337,-338,-340,-342,-343,-345,-347,-348,-350,-351,-353,-355,-356,-358,-359,-361,-363,-364,-366,-368,-369,-371,-372,-374,-376,-377,-379,-380,-382,-384,-385,-387,-389,-390,-392,-393,-395,-397,-398,-400,-401,-403,-405,-406,-408,-410,-411,-413,-414,-416,-418,-419,-421,-422,-424,-426,-427,-429,-431,-432,-434,-435,-437,-439,-440,-442,-443,-445,-447,-448,-450,-452,-453,-455,-456,-458,-460,-461,-463,-464,-466,-468,-469,-471,-473,-474,-476,-477,-479,-481,-482,-484,-485,-487,-489,-490,-492,-494,-495,-497,-498,-500);
+    document.MM_Time[0][0].values[1].prop = "top";
+    if (!ns4) {
+        document.MM_Time[0][0].values[0].prop2 = "style";
+        document.MM_Time[0][0].values[1].prop2 = "style";
+    }
+    if (ns5 || macIE5)
+        document.MM_Time[0][0].values[2] = new Array("1000px", "1000px", "1000px", "1000px", "1000px", "1000px", "1000px", "1000px", "1001px", "1001px", "1001px", "1001px", "1001px", "1001px", "1001px", "1002px", "1002px", "1002px", "1002px", "1002px", "1002px", "1002px", "1003px", "1003px", "1003px", "1003px", "1003px", "1003px", "1003px", "1004px", "1004px", "1004px", "1004px", "1004px", "1004px", "1004px", "1005px", "1005px", "1005px", "1005px", "1005px", "1005px", "1005px", "1005px", "1006px", "1006px", "1006px", "1006px", "1006px", "1006px", "1006px", "1007px", "1007px", "1007px", "1007px", "1007px", "1007px", "1007px", "1008px", "1008px", "1008px", "1008px", "1008px", "1008px", "1008px", "1009px", "1009px", "1009px", "1009px", "1009px", "1009px", "1009px", "1010px", "1010px", "1010px", "1010px", "1010px", "1010px", "1010px", "1011px", "1011px", "1011px", "1011px", "1011px", "1011px", "1011px", "1011px", "1012px", "1012px", "1012px", "1012px", "1012px", "1012px", "1012px", "1013px", "1013px", "1013px", "1013px", "1013px", "1013px", "1013px", "1014px", "1014px", "1014px", "1014px", "1014px", "1014px", "1014px", "1015px", "1015px", "1015px", "1015px", "1015px", "1015px", "1015px", "1016px", "1016px", "1016px", "1016px", "1016px", "1016px", "1016px", "1016px", "1017px", "1017px", "1017px", "1017px", "1017px", "1017px", "1017px", "1018px", "1018px", "1018px", "1018px", "1018px", "1018px", "1018px", "1019px", "1019px", "1019px", "1019px", "1019px", "1019px", "1019px", "1020px", "1020px", "1020px", "1020px", "1020px", "1020px", "1020px", "1021px", "1021px", "1021px", "1021px", "1021px", "1021px", "1021px", "1022px", "1022px", "1022px", "1022px", "1022px", "1022px", "1022px", "1022px", "1023px", "1023px", "1023px", "1023px", "1023px", "1023px", "1023px", "1024px", "1024px", "1024px", "1024px", "1024px", "1024px", "1024px", "1025px", "1025px", "1025px", "1025px", "1025px", "1025px", "1025px", "1026px", "1026px", "1026px", "1026px", "1026px", "1026px", "1026px", "1027px", "1027px", "1027px", "1027px", "1027px", "1027px", "1027px", "1027px", "1028px", "1028px", "1028px", "1028px", "1028px", "1028px", "1028px", "1029px", "1029px", "1029px", "1029px", "1029px", "1029px", "1029px", "1030px", "1030px", "1030px", "1030px", "1030px", "1030px", "1030px", "1031px", "1031px", "1031px", "1031px", "1031px", "1031px", "1031px", "1032px", "1032px", "1032px", "1032px", "1032px", "1032px", "1032px", "1033px", "1033px", "1033px", "1033px", "1033px", "1033px", "1033px", "1033px", "1034px", "1034px", "1034px", "1034px", "1034px", "1034px", "1034px", "1035px", "1035px", "1035px", "1035px", "1035px", "1035px", "1035px", "1036px", "1036px", "1036px", "1036px", "1036px", "1036px", "1036px", "1037px", "1037px", "1037px", "1037px", "1037px", "1037px", "1037px", "1038px", "1038px", "1038px", "1038px", "1038px", "1038px", "1038px", "1038px", "1039px", "1039px", "1039px", "1039px", "1039px", "1039px", "1039px", "1040px", "1040px", "1040px", "1040px", "1040px", "1040px", "1040px", "1041px", "1041px", "1041px", "1041px", "1041px", "1041px", "1041px", "1042px", "1042px", "1042px", "1042px", "1042px", "1042px", "1042px", "1043px", "1043px", "1043px", "1043px", "1043px", "1043px", "1043px", "1044px", "1044px", "1044px", "1044px", "1044px", "1044px", "1044px", "1044px", "1045px", "1045px", "1045px", "1045px", "1045px", "1045px", "1045px", "1046px", "1046px", "1046px", "1046px", "1046px", "1046px", "1046px", "1047px", "1047px", "1047px", "1047px", "1047px", "1047px", "1047px", "1048px", "1048px", "1048px", "1048px", "1048px", "1048px", "1048px", "1049px", "1049px", "1049px", "1049px", "1049px", "1049px", "1049px", "1050px");
+    else
+        document.MM_Time[0][0].values[2] = new Array(1000,1000,1000,1000,1000,1000,1000,1000,1001,1001,1001,1001,1001,1001,1001,1002,1002,1002,1002,1002,1002,1002,1003,1003,1003,1003,1003,1003,1003,1004,1004,1004,1004,1004,1004,1004,1005,1005,1005,1005,1005,1005,1005,1005,1006,1006,1006,1006,1006,1006,1006,1007,1007,1007,1007,1007,1007,1007,1008,1008,1008,1008,1008,1008,1008,1009,1009,1009,1009,1009,1009,1009,1010,1010,1010,1010,1010,1010,1010,1011,1011,1011,1011,1011,1011,1011,1011,1012,1012,1012,1012,1012,1012,1012,1013,1013,1013,1013,1013,1013,1013,1014,1014,1014,1014,1014,1014,1014,1015,1015,1015,1015,1015,1015,1015,1016,1016,1016,1016,1016,1016,1016,1016,1017,1017,1017,1017,1017,1017,1017,1018,1018,1018,1018,1018,1018,1018,1019,1019,1019,1019,1019,1019,1019,1020,1020,1020,1020,1020,1020,1020,1021,1021,1021,1021,1021,1021,1021,1022,1022,1022,1022,1022,1022,1022,1022,1023,1023,1023,1023,1023,1023,1023,1024,1024,1024,1024,1024,1024,1024,1025,1025,1025,1025,1025,1025,1025,1026,1026,1026,1026,1026,1026,1026,1027,1027,1027,1027,1027,1027,1027,1027,1028,1028,1028,1028,1028,1028,1028,1029,1029,1029,1029,1029,1029,1029,1030,1030,1030,1030,1030,1030,1030,1031,1031,1031,1031,1031,1031,1031,1032,1032,1032,1032,1032,1032,1032,1033,1033,1033,1033,1033,1033,1033,1033,1034,1034,1034,1034,1034,1034,1034,1035,1035,1035,1035,1035,1035,1035,1036,1036,1036,1036,1036,1036,1036,1037,1037,1037,1037,1037,1037,1037,1038,1038,1038,1038,1038,1038,1038,1038,1039,1039,1039,1039,1039,1039,1039,1040,1040,1040,1040,1040,1040,1040,1041,1041,1041,1041,1041,1041,1041,1042,1042,1042,1042,1042,1042,1042,1043,1043,1043,1043,1043,1043,1043,1044,1044,1044,1044,1044,1044,1044,1044,1045,1045,1045,1045,1045,1045,1045,1046,1046,1046,1046,1046,1046,1046,1047,1047,1047,1047,1047,1047,1047,1048,1048,1048,1048,1048,1048,1048,1049,1049,1049,1049,1049,1049,1049,1050);
+    document.MM_Time[0][0].values[2].prop = "width";
+    if (!ns4)
+        document.MM_Time[0][0].values[2].prop2 = "style";
+    document.MM_Time[0][1] = new String("behavior");
+    document.MM_Time[0][1].frame = 360;
+    document.MM_Time[0][1].value = "MM_timelineGoto('Timeline1','1')";
+    document.MM_Time[0].lastFrame = 360;
+    for (i=0; i<document.MM_Time.length; i++) {
+        document.MM_Time[i].ID = null;
+        document.MM_Time[i].curFrame = 0;
+        document.MM_Time[i].delay = 1000/document.MM_Time[i].fps;
+    }
+}
+//-->
 </script>
 <script type="text/javascript" src="scroll.js"></script>
 </script>
+<style type="text/css">
+<!--
+#Layer1 {
+	position:absolute;
+	width:100%;
+	height:115px;
+	z-index:1;
+	left: 0px;
+	top: 80px;
+	background-color: #FFFFFF;
+}
+-->
+</style>
 </head>
 
 
-<body class="mdui-theme-primary-purple mybody" onload ="resizeScroll();" onresize=" resizeScroll();">
+<body class="mdui-theme-primary-purple mybody" onload ="resizeScroll();MM_timelinePlay('Timeline1')" onresize=" resizeScroll();">
 <!--head-->
 <div class="mdui-appbar mdui-appbar-fixed debug">
 <div class="mdui-toolbar mdui-color-theme debug">
@@ -105,7 +235,7 @@ $(document).ready(function() {s
      <li class="mdui-list-item mdui-ripple">
         <a href="qiegewala/qiegewala.html"  target="_blank"><div class="mdui-list-item-content debug mylistcontent">
           窃格瓦拉表情</div></a>
-      </li>
+    </li>
   <div class = "mdui-divider"></div>
     <li class="mdui-list-item mdui-ripple">
       <a href="diy/diy.html"  target="_blank"><div class="mdui-list-item-content debug mylistcontent">
@@ -118,6 +248,18 @@ $(document).ready(function() {s
 
 <!--main body-->
 <div class ="myscroll debug mdui-text-color-grey-800" id="scroll">
+<div class ="mdui-container mdui-hoverable mdui-card debug mycontainer" id="0"><h2><p align="center">索引</p></h2></div>
+<div class ="mdui-container mdui-hoverable mdui-card debug mycontainer" id="0">
+  <div  class= "mdui-card debug" style="margin:0px; width:1100px;" id="1">
+      <div style="overflow:hidden; height:30px; text-indent:2em; margin:0px;">
+        <div class="debug" id="Layer1" style="g=width:100%; left: 0px; top: 80px; width: 1000px;">网络发展以来，人们越来越喜欢用“一图胜千言”的表情包来进行交流。表情包俨然成为了新的语言形式。
+        而表情包的发展却不是一蹴而就的，并且其发展有着很大的地方性。例如汉语中的表情包一词便能对应英文中的"emoticon""emoji""meme""smiley"等词语。
+        我们试以中国表情包的发展历史时间为线索，根据不同时期表情包的代表元素来介绍表情包的特点和发展。
+        表情包的发展和聊天工具的发展密不可分，和图形制作软件的发展也密不可分。据此、我们将表情包发展历史分成四部分:互联网早期、QQ时期、DIY时期、微信时期。试介绍如下：</div>
+	</div>
+  </div>
+  </div>
+
 <div class ="mdui-container mdui-hoverable mdui-card debug mycontainer" id="1">
   <p><h2>:) 字符表情</h2></p>
     <p>:)最早的表情包,:)是一个网络流行的表情，
@@ -129,7 +271,6 @@ $(document).ready(function() {s
         阅读更多</a>
       </div>
     </div>
-
 </div>
 
 <div class ="mdui-container mdui-hoverable mdui-card debug mycontainer" id="2">
@@ -147,7 +288,8 @@ $(document).ready(function() {s
 
 <div class ="mdui-container mdui-hoverable mdui-card debug mycontainer" id="3">
   <p><h2>小黄人</h2></p>
-    <p>xxxxxx...</p>
+    <p>小黄人表情是指由黄色的圆形为底组合而成的表情图案，它广泛运用在各式各样的聊天软件中。
+    受到了全国人的喜爱...</p>
     <div>
       <div class = "more debug">
         <a class = "pinklink" href="littleyellow/littleyellow.html"  target="_blank">
@@ -156,6 +298,15 @@ $(document).ready(function() {s
     </div>
 </div>
 
+<div class ="mdui-container mdui-hoverable mdui-card debug mycontainer" id="6">
+  <p></p>
+  <h2>绿豆蛙表情</h2>
+  <p></p>
+  <p>绿豆蛙是翔通动漫旗下经典的卡通形象，诞生于2003年夏天，因形象可爱、表情有趣而风靡于互联网，被广大网络用户应用于社交软件头像，聊天对话之中...</p>
+  <div>
+    <div class = "more debug"> <a class = "pinklink" href="lvdouwa/lvdouwa.html"  target="_blank"> 阅读更多</a> </div>
+  </div>
+</div>
 <div class ="mdui-container mdui-hoverable mdui-card debug mycontainer" id="4">
   <p><h2>中老年表情</h2></p>
     <p>中老年人表情意指长辈们喜欢在微信群中使用的表情，其特点为简单的图片加上带有特效的文字，主要内容主要为早安、晚安、
@@ -170,7 +321,8 @@ $(document).ready(function() {s
 
 <div class ="mdui-container mdui-hoverable mdui-card debug mycontainer" id="5">
   <p><h2>兔斯基表情</h2></p>
-    <p>xxxxxx...</p>
+    <p>2006年由中国传媒大学学生制作的兔斯基表情符号席卷了全中国，成为了之后许多年的一个文化符号。
+    专业制作表情包的人由此开始产生...</p>
     <div>
       <div class = "more debug">
         <a class = "pinklink" href="tusiji/tusiji.html"  target="_blank">
@@ -179,20 +331,10 @@ $(document).ready(function() {s
     </div>
 </div>
 
-<div class ="mdui-container mdui-hoverable mdui-card debug mycontainer" id="6">
-  <p><h2>绿豆蛙表情</h2></p>
-    <p>绿豆蛙是翔通动漫旗下经典的卡通形象，诞生于2003年夏天，因形象可爱、表情有趣而风靡于互联网，被广大网络用户应用于社交软件头像，聊天对话之中...</p>
-    <div>
-      <div class = "more debug">
-        <a class = "pinklink" href="lvdouwa/lvdouwa.html"  target="_blank">
-        阅读更多</a>
-      </div>
-    </div>
-</div>
-
 <div class ="mdui-container mdui-hoverable mdui-card debug mycontainer" id=“7”>
   <p><h2>暴走漫画表情</h2></p>
-    <p>xxxxxx...</p>
+    <p>暴走漫画最早由在美国4chan论坛上的网友发明，因此简单潦草却又令人捧腹的画风流行开来。而在中国，2011年一位名为“王尼玛”的网友制作了自制暴走漫画表情的网站
+      暴走漫画随即在中国流行了起来。由此，也拉开了自制表情的网络潮流...</p>
     <div>
       <div class = "more debug">
         <a class = "pinklink" href="baozoumanhua/baozoumanhua.html"  target="_blank">
@@ -212,7 +354,7 @@ $(document).ready(function() {s
 </div>
 <div class ="mdui-container mdui-hoverable mdui-card debug mycontainer" id="9">
   <p><h2>熊猫人表情</h2></p>
-    <p>xxxxxx...</p>
+    <p>熊猫人表情在大约2015年左右流行了起来，熊猫人表情既粗俗，又有趣，吸引来了许多用户，也成为了微信表情包中一霸...</p>
     <div>
       <div class = "more debug">
         <a class = "pinklink" href="xiongmaoren/xiongmaoren.html"  target="_blank">
