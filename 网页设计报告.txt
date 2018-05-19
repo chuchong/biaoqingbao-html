@@ -1,0 +1,70 @@
+1．网站的主题说明
+："表情包"在中国的发展，不同时期的表情包的实例和影响
+	另外，本项目在github上已开源，老师可通过https://github.com/chuchong/biaoqingbao-html进行查看。
+2．网站的总体规划与网站的结构框图
+：总体规划：主页、导航栏、各个网页
+	主  --->导
+	页	<--	航
+			栏
+			（
+			菜   --> 其他
+			单   <-- 页面(特别的，emoticon.html有到emoji.html的超链接)
+			栏)
+3．网站设计中使用的工具和技术
+：使用的工具有:Dreamweaver\Photoshop\Atom\Chrome\Firefox
+  使用的技术有:MDUI开源的css和js\简单的jquery\javascript\html\css
+4．原创素材制作说明
+  原创素材：logo，使用Photoshop进行画图而成，具体可参考同目录logo.psd
+  
+5．网页中使用Css说明
+  css：
+	mdui.css:开源design设计风格样式，具体可参考https://www.mdui.org/
+	mycss.css:为各页面的标题栏、导航栏、中间的滑动条、页尾进行了统一的管理
+			  debug类为制作时debug提供了便利
+6．团队成员的角色分工（需具体说明每一个成员的分工,具体的工作量能体现在每一个网页文件上更好），制作者个人信息（班级、姓名、学号、电子邮箱、联系电话等）
+黎思宇(2016010695 软件71 lisiy201695@gmail.com 13708005982)：
+	1、ui框架 菜单栏标题栏样式 mycss.css
+	2、小logo logo.psd logo.gif
+	3、页面滑动条自动根据页面高度进行调节 scroll.js
+	4、导航菜单栏的进与出 myjs.js
+	页面：
+		主页 index.html yes
+		字符表情 emoticon文件夹yes
+		小黄人表情 littleyelow文件夹yes
+		兔斯基表情 tusiji文件夹yes
+		暴走漫画表情 baozoumanhua文件夹yes
+		熊猫人表情 xiongmaoren文件夹yes
+
+刘旭鑫()：1、自制表情功能开发
+
+	页面：颜文字
+		中老年表情
+		绿豆蛙表情
+		假人表情
+		王境泽表情
+		自制表情
+		窃格瓦拉表情
+
+7．参考资料（网页文字和素材的出处：书籍、 网站等）
+	技术参考：
+	https://www.mdui.org/
+	http://www.w3school.com.cn/
+	素材参考：
+	字符表情：https://en.wikipedia.org/wiki/Emoticon
+	小黄人：https://en.wikipedia.org/wiki/Smiley
+	兔斯基：
+		https://zh.wikipedia.org/wiki/%E5%85%94%E6%96%AF%E5%9F%BA
+		http://www.clubtuzki.com/
+		http://www.pc6.com/softview/SoftView_19082.html
+	暴走漫画：
+		https://en.wikipedia.org/wiki/Rage_comic
+		http://knowyourmeme.com/memes/subcultures/rage-comics
+	熊猫人：
+		https://fabiaoqing.com/search/search/keyword/%E7%86%8A%E7%8C%AB%E4%BA%BA
+8 ．高级应用（如表单使用，嵌入JavaScript脚本等）
+	scroll.js中：
+		利用javascript+jquery语言实现了自动根据网页高度调节滑动条高度（在原div+css布局下似乎滑动条不能拉到底部）
+	myjs.js中:
+		利用javascript+jquery预言实现了点击打开关闭菜单栏的效果,以及打开网页时默认关闭菜单栏。
+	index.html中：
+		利用dreamweaver实现了字幕效果
