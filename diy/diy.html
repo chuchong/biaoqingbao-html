@@ -2,9 +2,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
 <title>自制</title>
 <link href="../mdui.css" rel="stylesheet" type="text/css" />
 <link href="../mycss.css" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" href="./assets/styles/reset.css">
+<link rel="stylesheet" href="./assets/styles/main.css">
 <script type="text/javascript" src="../mdui.js"></script>
 <script type="text/javascript" src="../scroll.js"></script>
 </head>
@@ -89,7 +93,7 @@
   <div class = "mdui-divider"></div>
     <li class="mdui-list-item mdui-ripple">
       <a href="diy.html"  target="_blank"><div class="mdui-list-item-content debug mylistcontent">
-        等待开发...</div></a>
+        DIY动图表情制作</div></a>
     </li>
 
   </ul>
@@ -98,9 +102,85 @@
 
 <!--main body-->
 <div class ="myscroll debug mdui-text-color-grey-800">
-<div class ="mdui-container mdui-hoverable mdui-card debug mycontainer" id="1">
-
+ <div class ="mdui-container mdui-hoverable mdui-card debug mycontainer" id="1" >
+    <p><h2><img src="images/zizhigif.gif"></h2></p>
+    <div align="center">
+      <img src="./assets/images/sorry.gif" id="gif">
+      </div>
+<form class="form"></form>
+  </div>
+<script src="./scripts/libs/libgif.js"></script>
+<script src="./scripts/libs/gif.js"></script>
+<script src="./scripts/meme-generator.js"></script>
+<script>
+  var SORRY = {
+    url: "./assets/images/sorry.gif",
+    totalFrame: 166,
+    period: 21600,
+    texts: [
+      {
+        start: 1000,
+        end: 1500,
+        text: "好啊"
+      },
+      {
+        start: 3210,
+        end: 4400,
+        text: "别说我是一等良民"
+      },
+      {
+        start: 5280,
+        end: 7260,
+        text: "就算你们真的想要诬告我"
+      },
+      {
+        start: 7460,
+        end: 10150,
+        text: "我有的是钱请律师帮我打官司"
+      },
+      {
+        start: 10250,
+        end: 11760,
+        text: "我想我根本不用坐牢"
+      },
+      {
+        start: 12330,
+        end: 13000,
+        text: "有钱了不起啊"
+      },
+      {
+        start: 13610,
+        end: 16610,
+        text: "Sorry，有钱真的了不起"
+      },
+      {
+        start: 18280,
+        end: 19800,
+        text: "不过我想你不会明白这种感觉"
+      },
+      {
+        start: 19800,
+        end: 21600,
+        text: "不明白，不明白"
+      }
+    ]
+  }
+  MemeGenerator(SORRY)
+</script>
+<div class ="mdui-container mdui-hoverable mdui-card debug mycontainer" id="2" >
+<div align="center">
+	<embed src="未命名-2.swf"></embed>
 </div>
+</div>
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-82264460-2"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-82264460-2');
+</script>
 <!--footer-->
 <div class = "mdui-color-theme" style="margin-top:0px;height:40px; margin-top:20px;">
 <div class = "mythanks">

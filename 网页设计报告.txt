@@ -1,4 +1,4 @@
-1．网站的主题说明
+﻿1．网站的主题说明
 ："表情包"在中国的发展，不同时期的表情包的实例和影响
 	另外，本项目在github上已开源，老师可通过https://github.com/chuchong/biaoqingbao-html进行查看。
 2．网站的总体规划与网站的结构框图
@@ -35,8 +35,9 @@
 		暴走漫画表情 baozoumanhua文件夹yes
 		熊猫人表情 xiongmaoren文件夹yes
 
-刘旭鑫()：1、自制表情功能开发
-
+刘旭鑫(2017013621 软件72 liuxuxin@outlook.com 13146009811)：
+	1、自制表情功能开发
+	2、未命名-2.swf zizhigif.gif
 	页面：颜文字
 		中老年表情
 		绿豆蛙表情
@@ -49,6 +50,7 @@
 	技术参考：
 	https://www.mdui.org/
 	http://www.w3school.com.cn/
+	https://github.com/javoski/sorry-meme-generator
 	素材参考：
 	字符表情：https://en.wikipedia.org/wiki/Emoticon
 	小黄人：https://en.wikipedia.org/wiki/Smiley
@@ -68,3 +70,5 @@
 		利用javascript+jquery预言实现了点击打开关闭菜单栏的效果,以及打开网页时默认关闭菜单栏。
 	index.html中：
 		利用dreamweaver实现了字幕效果
+	diy.html中：
+		利用JavaScript实现了在线制作表情包的功能
